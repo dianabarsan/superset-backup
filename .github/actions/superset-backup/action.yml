@@ -1,0 +1,28 @@
+name: 'superset-backup'
+description: 'Download and save Superset dashboard export in a GH repository'
+inputs:
+  gh_token:
+    description: 'The token to use to access the GitHub API'
+    required: true
+  superset_link:
+    description: 'The link to the superset server'
+    required: true
+  superset_token:
+    description: 'The token to use to access the Superset API'
+    required: true
+
+runs:
+  using: 'composite'
+  steps:
+    - uses: actions/checkout@master
+    - name: Download superset export
+      run: |
+        NOW=$(date +%Y%m%d%H%M%S)
+        mkdir -p /superset/backups        
+        curl -X GET ${{ inputs.superset_link }}/api/v1/assets/export/ -H "Authorization: Bearer ${{ inputs.superset_token }}" -O /superset/backups/$NOW.zip
+    - name: Upload superset export
+      uses: actions-js/push@master
+      with:
+        github_token: ${{ inputs.gh_token }}
+        message: 'chore: autobackup'
+
