@@ -19,8 +19,8 @@ runs:
       shell: bash
       run: |
         NOW=$(date +%Y%m%d%H%M%S)
-        mkdir -p /superset/backups        
-        curl -X GET ${{ inputs.superset_link }}/api/v1/assets/export/ -H "Authorization: Bearer ${{ inputs.superset_token }}" -O /superset/backups/$NOW.zip
+        mkdir -p ./superset/backups        
+        curl -X GET ${{ inputs.superset_link }}/api/v1/assets/export/ -H "Authorization: Bearer ${{ inputs.superset_token }}" -O ./superset/backups/$NOW.zip
     - name: Upload superset export
       uses: actions-js/push@master
       with:
