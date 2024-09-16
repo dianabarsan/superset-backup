@@ -1,0 +1,14 @@
+name: Example GitHub Workflow yml
+
+on: ['push']
+
+jobs:
+  deployment:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Make backup
+        uses: 'diababarsan/superset-backup/superset-backup@main'
+        with:
+          gh_token: ${{ secrets.GH_TOKEN }}
+          superset_link: ${{ secrets.SUPERSET_LINK }}
+          superset_token: ${{ secrets.SUPERSET_TOKEN }}
