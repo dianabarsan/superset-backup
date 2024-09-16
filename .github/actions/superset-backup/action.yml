@@ -16,6 +16,7 @@ runs:
   steps:
     - uses: actions/checkout@master
     - name: Download superset export
+      shell: bash
       run: |
         NOW=$(date +%Y%m%d%H%M%S)
         mkdir -p /superset/backups        
