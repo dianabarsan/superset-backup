@@ -7,7 +7,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Make backup
-        uses: 'dianabarsan/superset-backup@main'
+        uses: 'dianabarsan/.github/actions/superset-backup@main'
         with:
           gh_token: ${{ secrets.GH_TOKEN }}
           superset_link: ${{ secrets.SUPERSET_LINK }}
