@@ -25,7 +25,7 @@ runs:
         mkdir -p ./superset/backups        
         LOGIN=$(curl -X POST -d '{"username":"${{ inputs.superset_user }}","password":"${{ inputs.superset_password }}","provider":"db"}' -H "Content-Type: application/json" ${{ inputs.superset_link }}/api/v1/security/login)
         ACCESS_TOKEN=$(echo $LOGIN | sed "s/{.*\"access_token\":\"\([^\"]*\).*}/\1/g") 
-        CSRF=$(curl --location GET "${{ inputs.superset_link }}/api/v1/security/csrf_token/" --header "Authorization: Bearer $ACCESS_TOKEN") 
+        CSRF=$(curl "${{ inputs.superset_link }}/api/v1/security/csrf_token/" -H "Authorization: Bearer $ACCESS_TOKEN") 
         CSRF_TOKEN=$(echo $CSRF | sed "s/{.*\"result\":\"\([^\"]*\).*}/\1/g") 
         curl -X GET -0 ${{ inputs.superset_link }}/api/v1/assets/export/ -H "Authorization: Bearer $ACCESS_TOKEN" -H "X-CSRFToken: $CSRF_TOKEN" -o ./superset/backups/$NOW.zip
     - name: Upload superset export
