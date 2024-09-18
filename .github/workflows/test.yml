@@ -11,4 +11,5 @@ jobs:
         with:
           gh_token: ${{ secrets.GH_TOKEN }}
           superset_link: ${{ secrets.SUPERSET_LINK }}
-          superset_token: ${{ secrets.SUPERSET_TOKEN }}
+          superset_user: ${{ secrets.SUPERSET_USER }}
+          superset_password: ${{ secrets.SUPERSET_PASSWORD }}
