@@ -33,4 +33,3 @@ runs:
       with:
         github_token: ${{ inputs.gh_token }}
         message: 'chore: autobackup'
-
