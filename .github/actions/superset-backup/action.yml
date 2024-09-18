@@ -23,7 +23,7 @@ runs:
       run: |
         NOW=$(date +%Y%m%d%H%M%S)
         mkdir -p ./superset/backups        
-        LOGIN=$(curl -X POST -d '{"username":"{{ inputs.superset_user }}","password": "{{ inputs.superset_password }}","provider":"db"}' -H "Content-Type: application/json" ${{ inputs.superset_link }}/api/v1/security/login)
+        LOGIN=$(curl -X POST -d '{"username":"${{ inputs.superset_user }}","password":"${{ inputs.superset_password }}","provider":"db"}' -H "Content-Type: application/json" ${{ inputs.superset_link }}/api/v1/security/login)
         ACCESS_TOKEN=$(echo $LOGIN | sed "s/{.*\"access_token\":\"\([^\"]*\).*}/\1/g") 
         CSRF=$(curl --location GET "${{ inputs.superset_link }}/api/v1/security/csrf_token/" --header "Authorization: Bearer $ACCESS_TOKEN") 
         CSRF_TOKEN=$(echo $CSRF | sed "s/{.*\"result\":\"\([^\"]*\).*}/\1/g") 
